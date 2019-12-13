@@ -5,17 +5,17 @@ import java.util.concurrent.TimeUnit;
 
 public class ArrayBlockingQueueDemo {
 
-  ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);
+  private ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);
+  private static final int THREAD_COUNT = 4;
 
   public static void main(String[] args) {
     new ArrayBlockingQueueDemo().process();
   }
 
   private void process() {
-    final int threadCount = 4;
-    ExecutorService service = Executors.newFixedThreadPool(threadCount);
-    Consumer[] consumers = new Consumer[threadCount];
-    for (int i = 0; i < 4; i++) {
+    ExecutorService service = Executors.newFixedThreadPool(THREAD_COUNT);
+    Consumer[] consumers = new Consumer[THREAD_COUNT];
+    for (int i = 0; i < THREAD_COUNT; i++) {
       final String threadName = "Thread " + i;
       Consumer consumer = new Consumer(queue, threadName);
       consumers[i] = consumer;
